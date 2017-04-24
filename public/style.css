@@ -1,0 +1,52 @@
+/***********/
+/* GENERAL
+/***********/
+
+body {
+  background-color: #3e464c;
+  margin-top: 80px;
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3e464c;
+  height: 65px;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+
+header h1 {
+  color: white;
+  text-align: center;
+}
+
+.wrapper {
+  margin: auto;
+  width: 80%;
+}
+
+/***********/
+/* MAIN
+/***********/
+.result {
+  width: 100%;
+  height: 200px;
+  background-color: gray;
+  display: flex;
+}
+
+.result img {
+  width: 200px;
+  height: 100%;
+}
+
+
+/***********/
+/* EDIT
+/***********/

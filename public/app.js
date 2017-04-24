@@ -16,14 +16,29 @@ var fetchFromFlickr = function(query) {
     success: function(data) {
       console.log('FETCH FROM FLICKR SUCCESSFUL');
       populateResults(data.items);
-      // do something
     }
   });
 }
 
 var populateResults = function(data) {
   console.log(data);
-  
+  data.forEach(function(img) {
+    var html = `
+    <div class='result'>
+      <div class="result-image" style="background-image:url('${img.media.m}')"></div>
+      <div class="result-inner">
+        <h3>${img.title}</h3>
+        <div class="info">
+          <p><strong>AUTHOR: </strong>${img.author}</p>
+          <p><strong>TAGS: </strong>${img.tags}</p>
+          <p><strong>DATE TAKEN: </strong>${img.date_taken}</p>
+          <button><a href="${img.link}">Open in Flickr ...</a></button>
+        </div>
+      </div>
+    </div>
+    `;
+    $('.result-container').append(html);
+  })
 }
 
 /* P5 AND CANVAS */
@@ -51,3 +66,5 @@ var mainCanvas = function(p) {
 
 var bg = new p5(bgCanvas, 'canvas-container');
 var main = new p5(mainCanvas, 'canvas-container');
+
+/* EVENTS */

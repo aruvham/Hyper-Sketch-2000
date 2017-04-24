@@ -2,7 +2,7 @@
 /* GENERAL
 /***********/
 * {
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 body {
@@ -16,7 +16,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #3e464c;
+  background-color: gray;
   height: 65px;
   margin: 0;
   padding: 0;
@@ -25,7 +25,6 @@ header {
 }
 
 header h1 {
-  color: white;
   text-align: center;
 }
 
@@ -36,6 +35,7 @@ header h1 {
 
 button {
   margin: 0 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 /***********/
@@ -53,16 +53,32 @@ button {
   background-color: gray;
   display: flex;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+  margin: 25px 0;
 }
 
-.result img {
-  width: 200px;
+.result-image {
+  height: 200px;
+  background-image: url('http://hearthstonelegend.com/wp-content/uploads/2015/04/Hearthstone-Arena-Guide.jpg');
+  background-size: cover;
+  background-position: center;
+  min-width: 200px;
   height: 100%;
+}
+
+.result-inner {
+  padding-left: 15px;
+}
+
+.result-inner p {
+
 }
 
 /***********/
 /* EDIT
 /***********/
+.edit {
+  display: none;
+}
 
 .edit h2{
   color: white;
@@ -76,7 +92,7 @@ button {
   display: block;
   width: 400px;
   height: 400px;
-  margin: 50px auto 15px;
+  margin: 25px auto 15px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
@@ -92,7 +108,7 @@ canvas {
 .tools,
 .buttons,
 .actions {
-  margin: 10px auto;
+  margin: 20px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,6 +119,12 @@ canvas {
   height: 30px;
   border-radius: 50%;
   margin: 0 10px;
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+
+.color-selected {
+  border: 5px solid white;
 }
 
 .black { background-color: black; }

@@ -1,3 +1,33 @@
+/* JQUERY */
+
+$(document).ready(function() {
+  console.log("I AM READY!")
+});
+
+var fetchFromFlickr = function(query) {
+  var url = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?"
+  $.ajax({
+    dataType: "json",
+    url: url,
+    data: {
+        tags: query,
+        format: "json"
+      },
+    success: function(data) {
+      console.log('FETCH FROM FLICKR SUCCESSFUL');
+      populateResults(data.items);
+      // do something
+    }
+  });
+}
+
+var populateResults = function(data) {
+  console.log(data);
+  
+}
+
+/* P5 AND CANVAS */
+
 var bgCanvas = function(p) {
   p.setup = function() {
     p.createCanvas(400, 400);

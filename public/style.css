@@ -3,66 +3,97 @@
 /***********/
 * {
   /*border: 1px solid red;*/
+  font-family: Roboto, sans-serif;
 }
 
 body {
+  margin-top: 95px;
+
   background-color: #3e464c;
-  margin-top: 80px;
+
   font-family: 'Roboto', sans-serif;
 }
 
 header {
   position: fixed;
+  z-index: 2;
   top: 0;
   left: 0;
+
   width: 100%;
-  background-color: gray;
   height: 65px;
   margin: 0;
   padding: 0;
-  z-index: 2;
+
+  background-color: gray;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+  box-sizing: content-box;
+  background-color: #337ab7;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
 header h1 {
+  margin: 0 auto;
+  display: block;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .wrapper {
-  margin: auto;
   width: 80%;
+  margin: auto;
 }
 
 button {
   margin: 0 10px;
+
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 /***********/
 /* MAIN
 /***********/
+.main {
+  /*display: none;*/
+}
+
+#search-input {
+  min-width: 150px;
+  margin-right: 10px;
+}
+
 .search {
-  margin: auto;
   display: flex;
+
+  margin: auto;
+
   align-items: center;
   justify-content: center;
 }
 .result {
+  display: flex;
+
   width: 100%;
   height: 220px;
-  background-color: gray;
-  display: flex;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
   margin: 25px 0;
+  border-radius: 5px;
+  background-color: rgb(192, 192, 192);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 .result-image {
-  height: 220px;
-  background-image: url('https://www.flickr.com/photos/roughtimes/34245135365/');
-  background-size: cover;
-  background-position: center;
   min-width: 220px;
+  height: 220px;
   height: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-image: url('https://www.flickr.com/photos/roughtimes/34245135365/');
+  background-position: center;
+  background-size: cover;
+  box-sizing: border-box;
+  border: 10px solid #337ab7;
 }
 
 .result-inner {
@@ -77,49 +108,63 @@ button {
 /* EDIT
 /***********/
 .edit {
-  /*display: none;*/
+  display: none;
+}
+
+#back {
+  display: block;
+  margin: 25px auto;
 }
 
 .edit h2{
-  color: white;
   text-align: center;
+
+  color: white;
 }
 
 #canvas-container {
   position: relative;
   top: 0;
   left: 0;
+
   display: block;
+
   width: 400px;
   height: 400px;
   margin: 25px auto 15px;
+
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 canvas {
-  border-radius: 5px;
-  cursor: crosshair;
   position: absolute;
   top: 0;
   left: 0;
+
+  cursor: crosshair;
+
+  border-radius: 5px;
 }
 
 .colors,
 .tools,
 .buttons,
 .actions {
-  margin: 20px auto;
   display: flex;
+
+  margin: 20px auto;
+
   align-items: center;
   justify-content: center;
 }
 
 .colors span {
+  box-sizing: border-box;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
   margin: 0 10px;
-  box-sizing: border-box;
+  background-color: #3e464c;
+  border-radius: 50%;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
@@ -127,8 +172,11 @@ canvas {
   border: 5px solid white;
 }
 
-.black { background-color: black; }
-.white { background-color: white; }
-.red { background-color: red; }
-.green { background-color: green; }
-.blue { background-color: blue; }
+#download {
+  color: white;
+  text-decoration: none;
+}
+
+#download:hover {
+  text-decoration: none;
+}

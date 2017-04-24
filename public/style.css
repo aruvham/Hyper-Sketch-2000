@@ -1,6 +1,9 @@
 /***********/
 /* GENERAL
 /***********/
+* {
+  border: 1px solid red;
+}
 
 body {
   background-color: #3e464c;
@@ -31,14 +34,25 @@ header h1 {
   width: 80%;
 }
 
+button {
+  margin: 0 10px;
+}
+
 /***********/
 /* MAIN
 /***********/
+.search {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .result {
   width: 100%;
   height: 200px;
   background-color: gray;
   display: flex;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
 .result img {
@@ -49,3 +63,50 @@ header h1 {
 /***********/
 /* EDIT
 /***********/
+
+.edit h2{
+  color: white;
+  text-align: center;
+}
+
+#canvas-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 400px;
+  height: 400px;
+  margin: 50px auto 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+
+canvas {
+  border-radius: 5px;
+  cursor: crosshair;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.colors,
+.tools,
+.buttons,
+.actions {
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colors span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.black { background-color: black; }
+.white { background-color: white; }
+.red { background-color: red; }
+.green { background-color: green; }
+.blue { background-color: blue; }

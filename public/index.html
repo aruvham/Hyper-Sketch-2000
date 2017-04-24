@@ -18,9 +18,11 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/p5.min.js"></script>
+    <script type="text/javascript" src="lib/particles.min.js"></script>
   </head>
 
-  <body>
+  <body id="particles-js">
+    <script type="text/javascript" src="lib/particlesConfig.js"></script>
     <header><h1>hyper sketch 2000</h1></header>
 
     <div class="wrapper">
@@ -30,6 +32,7 @@
           <input id="search-input" class="form-control" type="text">
           <button id="search-flickr" class="btn btn-primary">Search Flick</button>
           <button class="btn btn-primary">Search Saved</button>
+          <button class="btn btn-success free-mode">Free Draw Mode</button>
         </div>
         <div class="result-container"></div>
       </div>
@@ -37,7 +40,9 @@
       <div class="edit">
         <button id="back" class="btn btn-primary">Back to Search</button>
         <div class="title"></div>
-        <div id="canvas-container"></div>
+        <div id="canvas-container">
+          <canvas id="merge-canvas" width="400" height="400"></canvas>
+        </div>
 
         <div class="colors">
           <span hex="#000000" class="black color-selected"></span>
@@ -57,7 +62,7 @@
 
         <div class="actions">
           <button id="delete" class="btn btn-danger">Delete</button>
-          <button id="save" class="btn btn-primary">Save</button>
+          <button id="save" class="btn btn-success">Save</button>
           <button class="btn btn-primary"><a id="download">Download</a></button>
         </div>
 

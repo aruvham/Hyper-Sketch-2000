@@ -6,6 +6,13 @@
   font-family: Roboto, sans-serif;
 }
 
+.particles-js-canvas-el {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 body {
   margin-top: 95px;
 
@@ -39,6 +46,7 @@ header h1 {
   display: block;
   text-align: center;
   text-transform: uppercase;
+  font-weight: lighter;
 }
 
 .wrapper {
@@ -76,7 +84,7 @@ button {
   display: flex;
 
   width: 100%;
-  height: 220px;
+  height: 300px;
   margin: 25px 0;
   border-radius: 5px;
   background-color: rgb(192, 192, 192);
@@ -93,7 +101,7 @@ button {
   background-position: center;
   background-size: cover;
   box-sizing: border-box;
-  border: 10px solid #337ab7;
+  border: 5px solid #337ab7;
 }
 
 .result-inner {
@@ -101,7 +109,19 @@ button {
 }
 
 .result-inner p {
+  max-height: 100px;
+}
 
+.result a {
+  color: white;
+}
+
+.result a:hover {
+  text-decoration: white;
+}
+
+.result strong {
+  font-weight: bold;
 }
 
 /***********/

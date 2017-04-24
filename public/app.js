@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
   console.log("I AM READY!");
-  //$('.main').hide();
-  //$('.edit').hide();
+  $('.main').show();
+  $('.edit').hide();
   var colors = $('.colors span')
   for(var i = 0; i < colors.length; i++) {
     var hex = $(colors[i]).attr('hex');
@@ -14,6 +14,44 @@ $(document).ready(function() {
   $('#search-flickr').on('click', function() {
     var query = $('#search-input').val();
     fetchFromFlickr(query);
+  });
+
+  $('.free-mode').on('click', function() {
+    // clear canvases
+    // get eraser to work
+    mainCtx.strokeStyle = 'rgb(255, 255, 255)';
+    main.fill('rgb(255, 255, 255)');
+    mainCtx.globalCompositeOperation = 'destination-out';
+    mainCtx.strokeStyle = 'rbga(255, 255, 255, 255)';
+    main.fill('rgba(255, 255, 255, 255)');
+    main.rect(0, 0, 400, 400);
+
+    bgCtx.strokeStyle = 'rgb(255, 255, 255)';
+    bg.fill('rgb(255, 255, 255)');
+    bgCtx.globalCompositeOperation = 'destination-out';
+    bgCtx.strokeStyle = 'rbga(255, 255, 255, 255)';
+    bg.fill('rgba(255, 255, 255, 255)');
+    bg.rect(0, 0, 400, 400);
+
+    // add/remove classes
+    var colors = $('.colors span')
+    for(var i = 0; i < colors.length; i++) {
+      var hex = $(colors[i]).attr('hex');
+      $(colors[i]).removeClass("color-selected");
+      if(hex === '#000000') $(colors[i]).addClass("color-selected");
+    }
+
+    // restore
+    main.stroke('#000');
+    mainCtx.globalCompositeOperation = 'source-over';
+
+    bg.stroke('#FFF');
+    bg.fill('#FFF');
+    bgCtx.globalCompositeOperation = 'source-over';
+    bg.rect(0, 0, 400, 400);
+
+    $('.main').hide();
+    $('.edit').show();
   });
 
   $('#back').on('click', function() {
@@ -104,9 +142,9 @@ $(document).ready(function() {
   });
 
   $('#download').on('click', function() {
-    console.log('DOWNLOADING IMAGE...')
+    console.log('DOWNLOADING IMAGE...');
     this.href = document.getElementById('defaultCanvas1').toDataURL();
-    this.download = 'test.png';
+    this.download = 'sketch.png';
   });
 
 });
@@ -140,8 +178,8 @@ var populateResults = function(data) {
           <p><strong>AUTHOR: </strong>${img.author}</p>
           <p><strong>TAGS: </strong>${img.tags}</p>
           <p><strong>DATE TAKEN: </strong>${img.date_taken}</p>
-          <button><a href="${img.link}">Open in Flickr ...</a></button>
-          <button class="open-editor" title="${img.title}" url="${img.media.m}">Open in Editor ...</button>
+          <button class="btn btn-primary"><a href="${img.link}">Open in Flickr ...</a></button>
+          <button class="btn btn-info open-editor" title="${img.title}" url="${img.media.m}">Open in Editor ...</button>
         </div>
       </div>
     </div>
@@ -153,6 +191,19 @@ var populateResults = function(data) {
 
 var setButtonEvents = function() {
   $('.open-editor').on('click', function() {
+
+    // get eraser to work
+    mainCtx.strokeStyle = 'rgb(255, 255, 255)';
+    main.fill('rgb(255, 255, 255)');
+    mainCtx.globalCompositeOperation = 'destination-out';
+    mainCtx.strokeStyle = 'rbga(255, 255, 255, 255)';
+    main.fill('rgba(255, 255, 255, 255)');
+    main.rect(0, 0, 400, 400);
+
+    // restore
+    main.stroke('#000');
+    mainCtx.globalCompositeOperation = 'source-over';
+
     $('.main').hide();
     $('.edit').show();
     var title = $(this).attr("title");
@@ -181,7 +232,7 @@ var mainCanvas = function(p) {
   p.setup = function() {
     p.createCanvas(400, 400);
     mainCtx = main.canvas.getContext('2d');
-    p.strokeWeight(10);
+    p.strokeWeight(6);
     p.stroke('#000');
     p.fill('#000');
   };
@@ -191,6 +242,14 @@ var mainCanvas = function(p) {
     }
   };
 };
+
+var mergeCanvas = function() {
+  console.log('MERGING CANVAS');
+  var canvas = document.getElementById('merge-canvas');
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(document.getElementById('defaultCanvas0'), 0, 0);
+  ctx.drawImage(document.getElementById('defaultCanvas1'), 0, 0);
+}
 
 var bg = new p5(bgCanvas, 'canvas-container');
 var bgCtx;

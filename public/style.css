@@ -22,7 +22,6 @@ body {
 }
 
 header {
-  position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
@@ -161,11 +160,6 @@ button {
 
 .edit {
   display: none;
-}
-
-#back {
-  display: block;
-  margin: 25px auto;
 }
 
 .edit h2{

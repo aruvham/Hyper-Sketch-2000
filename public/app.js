@@ -392,7 +392,7 @@ var populateResultsFromDatabase = function(data) {
 
 var deleteFromDatabase = function(id) {
   $.ajax({
-    url: "http://hyper-sketch-2000.herokuapp.com//delete",
+    url: "http://hyper-sketch-2000.herokuapp.com/delete",
     type: "POST",
     data: JSON.stringify({
       _id: id
@@ -447,7 +447,7 @@ var setOpenSavedImgEvents = function() {
     var img = new Image;
     img.src = dataURL;
     img.onload = function() {
-      mainCtx.drawImage(img, 0, 0);
+      mainCtx.drawImage(img, 0, 0, 400, 400);
     }
     $('#title-input').val(title);
     $('#author-input').val(author);

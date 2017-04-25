@@ -1,3 +1,4 @@
+var credentials = require(__dirname + '/credentials.js');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -12,7 +13,8 @@ console.log('Server now listening on port 8080');
 
 /* DATABASE */
 
-mongoose.connect('mongodb://localhost/test');
+//mongoose.connect('mongodb://localhost/test');
+mongoose.connect(`mongodb://${credentials.USERNAME}:${credentials.PASSWORD}@ds113841.mlab.com:13841/hyper-sketch-2000`);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -50,6 +52,8 @@ app.post('/sketch', function(req, res) {
       console.log(err);
     } else {
       console.log(`SKETCH ${newSketch._id} SAVED!`);
+      res.send('SAVED');
+      res.end();
     }
   });
 });

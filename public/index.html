@@ -31,7 +31,7 @@
         <div class="search">
           <input id="search-input" class="form-control" type="text">
           <button id="search-flickr" class="btn btn-primary">Search Flick</button>
-          <button class="btn btn-primary">Search Saved</button>
+          <button class="search-saved btn btn-primary">Search Saved</button>
           <button class="btn btn-success free-mode">Free Draw Mode</button>
         </div>
         <div class="result-container"></div>
@@ -39,7 +39,9 @@
 
       <div class="edit">
         <button id="back" class="btn btn-primary">Back to Search</button>
-        <div class="title"></div>
+        <input id="title-input" type="text" value="my awesome drawing">
+        <input id="author-input" type="text" value="anonymous">
+        <!-- <div class="title"><h2>my drawing</h2></div> -->
         <div id="canvas-container">
           <canvas id="merge-canvas" width="400" height="400"></canvas>
         </div>
@@ -61,9 +63,9 @@
         </div>
 
         <div class="actions">
-          <button id="delete" class="btn btn-danger">Delete</button>
+          <button id="delete" class="btn btn-danger">Erase All</button>
           <button id="save" class="btn btn-success">Save</button>
-          <button class="btn btn-primary"><a id="download">Download</a></button>
+          <button class="btn btn-primary download-btn"><a id="download">Download</a></button>
         </div>
 
       </div>

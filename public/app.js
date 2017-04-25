@@ -1,3 +1,5 @@
+var currentImgURL = null;
+
 /* JQUERY */
 
 $(document).ready(function() {
@@ -55,6 +57,7 @@ $(document).ready(function() {
   });
 
   $('#back').on('click', function() {
+    currentImgURL = null;
     // clear canvases
     // get eraser to work
     mainCtx.strokeStyle = 'rgb(255, 255, 255)';
@@ -147,6 +150,15 @@ $(document).ready(function() {
     this.download = 'sketch.png';
   });
 
+  $('.search-saved').on('click', function() {
+    console.log('FETCHING FROM DATABASE')
+    fetchFromDatabase();
+  })
+
+  $('#save').on('click', function() {
+    saveDrawing();
+  });
+
 });
 
 var fetchFromFlickr = function(query) {
@@ -171,12 +183,12 @@ var populateResults = function(data) {
   data.forEach(function(img) {
     var html = `
     <div class='result'>
+    <div class="result-image-bg"></div>
       <div class="result-image" style="background-image:url('${img.media.m}')"></div>
       <div class="result-inner">
         <h3>${img.title}</h3>
         <div class="info">
           <p><strong>AUTHOR: </strong>${img.author}</p>
-          <p><strong>TAGS: </strong>${img.tags}</p>
           <p><strong>DATE TAKEN: </strong>${img.date_taken}</p>
           <button class="btn btn-primary"><a href="${img.link}">Open in Flickr ...</a></button>
           <button class="btn btn-info open-editor" title="${img.title}" url="${img.media.m}">Open in Editor ...</button>
@@ -186,10 +198,10 @@ var populateResults = function(data) {
     `;
     $('.result-container').append(html);
   })
-  setButtonEvents();
+  setOpenButtonEvents();
 }
 
-var setButtonEvents = function() {
+var setOpenButtonEvents = function() {
   $('.open-editor').on('click', function() {
 
     // get eraser to work
@@ -206,15 +218,18 @@ var setButtonEvents = function() {
 
     $('.main').hide();
     $('.edit').show();
+    $('.download-btn').hide();
+
     var title = $(this).attr("title");
     var url = $(this).attr("url");
+    currentImgURL = url;
     console.log(url)
     var img = new Image;
     img.src = url;
     img.onload = function() {
       drawImageProp(bgCtx, img, 0, 0, 400, 400);
     };
-    $('.title').empty().html(`<h2>${title}</h2>`);
+    $('#title-input').val(title);
   });
 }
 
@@ -305,3 +320,146 @@ function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
     // fill image in dest. rectangle
     ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
 }
+
+/* TALK TO SERVER */
+
+var saveDrawing = function() {
+  var canvas = document.getElementById('defaultCanvas1');
+  var url = canvas.toDataURL();
+  var data = {
+    title: $('#title-input').val() === '' ? 'my awesome drawing' : $('#title-input').val(),
+    author: $('#author-input').val() === '' ? 'some dude' : $('#author-input').val(),
+    dataURL: url,
+    url: currentImgURL || 'null',
+    timestamp: new Date().toString()
+  }
+  console.log(data);
+
+  $.ajax({
+    url: "http://localhost:8080/sketch",
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    success: function (data) {
+      console.log('IMG SAVED TO DB!');
+      alert("Your Sketch was Saved!");
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  });
+}
+
+var fetchFromDatabase = function() {
+  $.get("http://localhost:8080/sketch", function(data) {
+    console.log(data);
+    populateResultsFromDatabase(data);
+  });
+}
+
+var populateResultsFromDatabase = function(data) {
+  console.log(data);
+  $('.result-container').empty();
+  data = data.reverse();
+  data.forEach(function(img) {
+    var css;
+
+    if(img.url === 'nul') {
+      css = `style="background-color:white"`;
+    } else {
+      css = `style="background-image:url('${img.url}')"`
+    }
+
+    var html = `
+    <div class='result' id="${img._id}">
+      <div class="result-image-bg" ${css}></div>
+      <div class="result-image" style="background-image:url('${img.dataURL}')"></div>
+      <div class="result-inner">
+        <h3>${img.title}</h3>
+        <div class="info">
+          <p><strong>AUTHOR: </strong>${img.author}</p>
+          <p><strong>DATE CREATED: </strong>${img.timestamp}</p>
+          <button class="btn btn-danger delete-img" id="${img._id}" url="${img.url}">Delete</button>
+          <button class="btn btn-info open-editor" author="${img.author}" title="${img.title}" dataURL="${img.dataURL}" url="${img.url}">Open in Editor ...</button>
+        </div>
+      </div>
+    </div>
+    `;
+    $('.result-container').append(html);
+  })
+  setOpenSavedImgEvents();
+}
+
+var deleteFromDatabase = function(id) {
+  $.ajax({
+    url: "http://localhost:8080/delete",
+    type: "POST",
+    data: JSON.stringify({_id: id}),
+    contentType: "application/json",
+    success: function (data) {
+      console.log('IMG DELETED FROM DB!');
+      fetchFromDatabase();
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  });
+}
+
+var setOpenSavedImgEvents = function() {
+
+  $('.open-editor').on('click', function() {
+
+    // get eraser to work
+    mainCtx.strokeStyle = 'rgb(255, 255, 255)';
+    main.fill('rgb(255, 255, 255)');
+    mainCtx.globalCompositeOperation = 'destination-out';
+    mainCtx.strokeStyle = 'rbga(255, 255, 255, 255)';
+    main.fill('rgba(255, 255, 255, 255)');
+    main.rect(0, 0, 400, 400);
+
+    // restore
+    main.stroke('#000');
+    mainCtx.globalCompositeOperation = 'source-over';
+
+    $('.main').hide();
+    $('.edit').show();
+    $('.download-btn').hide();
+
+    if($(this).attr('url') === 'nul') {
+      $('.download-btn').show();
+    }
+
+    var title = $(this).attr("title");
+    var author = $(this).attr("author");
+    var url = $(this).attr("url");
+    var dataURL = $(this).attr("dataURL");
+    currentImgURL = url;
+    console.log(url)
+    var bgImg = new Image;
+    bgImg.src = url;
+    bgImg.onload = function() {
+      drawImageProp(bgCtx, bgImg, 0, 0, 400, 400);
+    };
+
+    var img = new Image;
+    img.src = dataURL;
+    img.onload = function() {
+      mainCtx.drawImage(img, 0, 0);
+    }
+    $('#title-input').val(title);
+    $('#author-input').val(author);
+  });
+
+  $('.delete-img').on('click', function() {
+    console.log('ATTEMPTING TO DELETE IMG');
+    console.log($(this))
+    var id = $(this).attr("id");
+    console.log(id, typeof id)
+    deleteFromDatabase(id);
+  });
+}
+
+// open saved image in Browser **
+
+// attach events to buttons

@@ -14,7 +14,7 @@
 }
 
 body {
-  
+
   background-color: #3e464c;
 
   font-family: 'Roboto', sans-serif;
@@ -63,6 +63,7 @@ button {
 /***********/
 .main {
   /*display: none;*/
+  margin-top: 25px;
 }
 
 #search-input {

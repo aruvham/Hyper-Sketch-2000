@@ -327,6 +327,7 @@ var saveDrawing = function() {
   var canvas = document.getElementById('defaultCanvas1');
   var url = canvas.toDataURL();
   var data = {
+    'Access-Control-Allow-Origin': *,
     title: $('#title-input').val() === '' ? 'my awesome drawing' : $('#title-input').val(),
     author: $('#author-input').val() === '' ? 'some dude' : $('#author-input').val(),
     dataURL: url,
@@ -339,7 +340,7 @@ var saveDrawing = function() {
     url: "https://git.heroku.com/hyper-sketch-2000.git/sketch",
     type: "POST",
     data: JSON.stringify(data),
-    contentType: "jsonp",
+    contentType: "application/json",
     success: function (data) {
       console.log('IMG SAVED TO DB!');
       alert("Your Sketch was Saved!");
@@ -394,8 +395,11 @@ var deleteFromDatabase = function(id) {
   $.ajax({
     url: "https://git.heroku.com/hyper-sketch-2000.git/delete",
     type: "POST",
-    data: JSON.stringify({_id: id}),
-    contentType: "jsonp",
+    data: JSON.stringify({
+      'Access-Control-Allow-Origin': *,
+      _id: id
+    }),
+    contentType: "application/json",
     success: function (data) {
       console.log('IMG DELETED FROM DB!');
       fetchFromDatabase();

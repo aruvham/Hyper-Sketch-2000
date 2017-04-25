@@ -327,7 +327,7 @@ var saveDrawing = function() {
   var canvas = document.getElementById('defaultCanvas1');
   var url = canvas.toDataURL();
   var data = {
-    'Access-Control-Allow-Origin': *,
+    'Access-Control-Allow-Origin': '*',
     title: $('#title-input').val() === '' ? 'my awesome drawing' : $('#title-input').val(),
     author: $('#author-input').val() === '' ? 'some dude' : $('#author-input').val(),
     dataURL: url,
@@ -396,7 +396,7 @@ var deleteFromDatabase = function(id) {
     url: "https://git.heroku.com/hyper-sketch-2000.git/delete",
     type: "POST",
     data: JSON.stringify({
-      'Access-Control-Allow-Origin': *,
+      'Access-Control-Allow-Origin': '*',
       _id: id
     }),
     contentType: "application/json",

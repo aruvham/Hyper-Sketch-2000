@@ -339,7 +339,7 @@ var saveDrawing = function() {
     url: "https://git.heroku.com/hyper-sketch-2000.git/sketch",
     type: "POST",
     data: JSON.stringify(data),
-    contentType: "application/json",
+    contentType: "jsonp",
     success: function (data) {
       console.log('IMG SAVED TO DB!');
       alert("Your Sketch was Saved!");
@@ -395,7 +395,7 @@ var deleteFromDatabase = function(id) {
     url: "https://git.heroku.com/hyper-sketch-2000.git/delete",
     type: "POST",
     data: JSON.stringify({_id: id}),
-    contentType: "application/json",
+    contentType: "jsonp",
     success: function (data) {
       console.log('IMG DELETED FROM DB!');
       fetchFromDatabase();

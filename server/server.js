@@ -8,8 +8,8 @@ var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
-app.listen('8080');
-console.log('Server now listening on port 8080');
+app.listen(process.env.PORT || '8080');
+//console.log('Server now listening on port 8080');
 
 /* DATABASE */
 

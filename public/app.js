@@ -336,7 +336,7 @@ var saveDrawing = function() {
   console.log(data);
 
   $.ajax({
-    url: "http://localhost:8080/sketch",
+    url: "https://git.heroku.com/hyper-sketch-2000.git/sketch",
     type: "POST",
     data: JSON.stringify(data),
     contentType: "application/json",
@@ -351,7 +351,7 @@ var saveDrawing = function() {
 }
 
 var fetchFromDatabase = function() {
-  $.get("http://localhost:8080/sketch", function(data) {
+  $.get("https://git.heroku.com/hyper-sketch-2000.git/sketch", function(data) {
     console.log(data);
     populateResultsFromDatabase(data);
   });
@@ -392,7 +392,7 @@ var populateResultsFromDatabase = function(data) {
 
 var deleteFromDatabase = function(id) {
   $.ajax({
-    url: "http://localhost:8080/delete",
+    url: "https://git.heroku.com/hyper-sketch-2000.git/delete",
     type: "POST",
     data: JSON.stringify({_id: id}),
     contentType: "application/json",

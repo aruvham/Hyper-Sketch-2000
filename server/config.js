@@ -1,20 +1,30 @@
 var mongoose = require('mongoose');
 
 var sketchSchema = new mongoose.Schema({
-  tile: {
+
+  title: {
+    type: String,
+    required: true
+  },
+
+  author: {
     type: String,
     required: true
   },
 
   url: {
-    type: String,
-    required: true
+    type: String
   },
 
   dataURL: {
     type: String,
     required: true
+  },
+
+  timestamp: {
+    type: String,
+    required: true
   }
 });
 
-module.exports = mongoose.model('sketches', sketchSchema);
+module.exports = mongoose.model('Sketch', sketchSchema);
